@@ -1,45 +1,445 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr" class="dark">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kozmopolitan</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=b_lZjovqkJHguZJoQ90ifxC8fRYv3UW6rJ_FP-do0Bo8JoQ5anIXB-PAHQQ14pbB" charset="UTF-8"></script><script src="https://cdn.counter.dev/script.js" data-id="2cc9c657-d4a9-40a4-b44c-f5c6ce3a2611" data-utcoffset="3"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <audio id="backgroundMusic" autoplay loop>
+        <source src="/music/sah.mp3" type="audio/mpeg">
+        Tarayıcınız ses özelliğini desteklemiyor.
+    </audio>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            bg: '#1a0000',
+                            card: '#240000',
+                            border: '#2d0000'
+                        },
+                        light: {
+                            bg: '#fff5f5',
+                            card: '#ffffff',
+                            border: '#ffe5e5'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    <main>
-        <div class="profile">
-            <img src="profile-picture.jpg" alt="Profile Picture" class="profile-picture">
-            <div class="profile-info">
-                <h2>Kozmopolitan</h2>
-                <p>DJ</p>
-                <div class="status">
-                    <span class="idle">Idle</span>
-                    <p>No activity</p>
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes countUp {
+            from {
+                transform: translateY(10px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .typing {
+            position: relative;
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        .typing::after {
+            content: '|';
+            position: absolute;
+            right: -4px;
+            animation: blink 1s infinite;
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-scaleIn {
+            animation: scaleIn 0.8s ease-out forwards;
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .animate-delay-200 {
+            animation-delay: 200ms;
+        }
+
+        .animate-delay-400 {
+            animation-delay: 400ms;
+        }
+
+        .animate-delay-600 {
+            animation-delay: 600ms;
+        }
+
+        .discord-card-transition {
+            transition: all 0.3s ease-in-out;
+        }
+
+        #spotify-card {
+            transition: all 0.3s ease-in-out;
+        }
+
+        #spotify-card.hidden {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .dark .dark\:bg-dark-card {
+            background-color: rgba(36, 0, 0, 0.9);
+        }
+
+        .dark .dark\:border-dark-border {
+            border-color: rgba(45, 0, 0, 0.9);
+        }
+
+        .dark .hover\:text-red-500:hover {
+            color: #ff0000;
+        }
+
+        .count-animation {
+            animation: countUp 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="dark:bg-dark-bg bg-light-bg transition-colors duration-300">
+    <div class="min-h-screen flex flex-col items-center justify-center p-4">
+        <div class="w-full max-w-md dark:bg-dark-card/90 bg-light-card/90 backdrop-blur-md rounded-xl p-8 
+                    shadow-lg dark:border-dark-border border-light-border border
+                    opacity-0 animate-fadeInUp">
+            
+            <div class="flex justify-center -mt-16 mb-4">
+                <img src="img/images.jpeg" alt="kozmopolitan" 
+                     class="w-32 h-32 rounded-full dark:border-dark-bg border-light-bg border-4 shadow-lg
+                            dark:bg-[#300000] bg-red-50
+                            opacity-0 animate-scaleIn animate-delay-200">
+            </div>
+
+            <div class="text-center space-y-2 mb-8 opacity-0 animate-fadeInUp animate-delay-400">
+                <h1 class="text-4xl font-light dark:text-red-100 text-gray-800">
+                    Kozmopolitan
+                </h1>
+                <p class="text-sm font-light dark:text-red-300 text-gray-600 tracking-widest typing" id="typing-text"></p>
+            </div>
+
+            <div class="space-y-4 mb-8 opacity-0 animate-fadeIn animate-delay-600" id="discord-activity">
+                <div class="dark:bg-[#300000]/80 bg-red-50/80 backdrop-blur-md rounded-xl p-4 
+                            dark:border-dark-border border-light-border border hidden
+                            discord-card-transition" 
+                     id="spotify-card">
+                    <div class="flex items-center space-x-4">
+                        <img id="spotify-album" src="" alt="Album Art" class="w-16 h-16 rounded-lg">
+                        <div class="flex-1">
+                            <h3 class="dark:text-red-100 text-gray-800 font-medium" id="spotify-song"></h3>
+                            <p class="dark:text-red-300 text-gray-600 text-sm" id="spotify-artist"></p>
+                            <p class="dark:text-red-400 text-gray-500 text-xs" id="spotify-album-name"></p>
+                        </div>
+                        <i class="fab fa-spotify text-[#1DB954] text-2xl"></i>
+                    </div>
                 </div>
-                <div class="social-links">
-                    <a href="#" class="discord"><i class="fab fa-discord"></i></a>
-                    <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="close"><i class="fas fa-times"></i></a>
+
+                <div class="dark:bg-[#300000]/80 bg-red-50/80 backdrop-blur-md rounded-xl p-4 
+                            dark:border-dark-border border-light-border border
+                            discord-card-transition">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2">
+                                <span id="status-indicator" class="w-3 h-3 rounded-full"></span>
+                                <h3 class="dark:text-red-100 text-gray-800 font-medium" id="discord-status"></h3>
+                            </div>
+                            <p class="dark:text-red-300 text-gray-600 text-sm mt-1" id="discord-activity-details"></p>
+                        </div>
+                        <i class="fab fa-discord dark:text-red-400 text-gray-600 text-2xl"></i>
+                    </div>
                 </div>
             </div>
+
+            <div class="flex justify-center space-x-6 pt-4 dark:border-dark-border border-light-border border-t
+                        opacity-0 animate-fadeInUp animate-delay-600">
+                <a href="https://discord.com/users/818497377307721728" 
+                   class="dark:text-red-400 text-gray-600 hover:text-red-500 transition-colors duration-300">
+                    <i class="fab fa-discord text-xl"></i>
+                </a>
+                <a href="https://www.instagram.com/kozmolenin/" 
+                   class="dark:text-red-400 text-gray-600 hover:text-red-500 transition-colors duration-300">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+                <a href="https://www.youtube.com/@northfx4549" 
+                   class="dark:text-red-400 text-gray-600 hover:text-red-500 transition-colors duration-300">
+                    <i class="fab fa-youtube text-xl"></i>
+                </a>
+                <a href="https://x.com/Northashas" 
+                   class="dark:text-red-400 text-gray-600 hover:text-red-500 transition-colors duration-300">
+                    <i class="fa-brands fa-x-twitter text-xl"></i>
+                </a>
+            </div>
+        </div>
+        <div class="mt-6 w-full max-w-md opacity-0 animate-fadeInUp animate-delay-600">
+            <blockquote class="italic dark:text-red-400 text-gray-700 text-lg 
+                               bg-red-50/10 p-6 rounded-lg border border-red-200/20 shadow-md
+                               transition-all duration-300 
+                               hover:scale-110 hover:shadow-lg 
+                               hover:bg-red-100/20 
+                               text-center
+                               group">
+                <div class="relative">
+                    "Satranç tahtası kapandığında şah ve piyon aynı torbaya konur.
+            Benim şahlıktan vazgeçmeye niyetim yok".<br>
+                    <span class="absolute -bottom-2 right-0 text-sm opacity-70 group-hover:opacity-100 transition-opacity">
+                        -Mehmet Karahanlı
+                    </span>
+                </div>
+            </blockquote>
+            <audio id="backgroundMusic" autoplay loop>
+                <source src="/music/sah.mp3" type="audio/mpeg">
+                Tarayıcınız ses özelliğini desteklemiyor.
+            </audio>
         </div>
 
-        <div class="quote">
-            <p>"Satranç tahtası kapandığında şah ve piyon aynı torbaya konur. Benim şahlıktan vazgeçmeye niyetim yok".</p>
-            <p>-Mehmet Karahanlı</p>
+        <div class="mt-8 text-center text-sm dark:text-red-400 text-gray-600
+                    opacity-0 animate-fadeInUp animate-delay-600">
+            © 2024 Ömer Kuzey Aksu
         </div>
+    </div>
 
-        <footer>
-            <p>© 2024
+    <canvas id="minimal-waves" class="fixed top-0 left-0 w-full h-full -z-10"></canvas>
+
+    <script>
+        // Easter Egg - CTRL + K
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.key === 'k') {
+                window.location.href = 'secret.html';
+            }
+        });
+
+        const canvas = document.getElementById('minimal-waves');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Wave {
+            constructor(amplitude, period, phase) {
+                this.amplitude = amplitude;
+                this.period = period;
+                this.phase = phase;
+            }
+
+            draw(time) {
+                ctx.beginPath();
+                for (let x = 0; x < canvas.width; x += 1) {
+                    const y = canvas.height/2 + 
+                             this.amplitude * 
+                             Math.sin((x * this.period + time * 0.5 + this.phase) * 0.003);
+                    
+                    if (x === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                ctx.stroke();
+            }
+        }
+
+        const waves = [
+            new Wave(50, 1, 0),
+            new Wave(30, 2, 2),
+            new Wave(20, 3, 4)
+        ];
+
+        function animate(time) {
+            ctx.fillStyle = 'rgba(26, 0, 0, 1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = 'rgba(255, 0, 0, 0.1)';
+
+            waves.forEach(wave => wave.draw(time));
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        animate(0);
+
+        // Typing effect
+        const words = ['Developer', 'Designer', 'Creator'];
+        let currentWord = 0;
+
+        function typeWriter(element, words, speed = 100, delay = 1000, deleteDelay = 3000) {
+            let index = 0;
+            let currentText = words[currentWord];
+            
+            function type() {
+                if (index < currentText.length) {
+                    element.textContent += currentText.charAt(index);
+                    index++;
+                    setTimeout(type, speed);
+                } else {
+                    setTimeout(deleteText, deleteDelay);
+                }
+            }
+
+            function deleteText() {
+                if (element.textContent.length > 0) {
+                    element.textContent = element.textContent.slice(0, -1);
+                    setTimeout(deleteText, speed / 2);
+                } else {
+                    index = 0;
+                    currentWord = (currentWord + 1) % words.length;
+                    currentText = words[currentWord];
+                    setTimeout(type, delay);
+                }
+            }
+
+            setTimeout(type, delay);
+        }
+
+        const typingElement = document.getElementById('typing-text');
+        typeWriter(typingElement, words);
+
+        // Discord Integration
+        const statusColors = {
+            online: 'bg-red-500',
+            idle: 'bg-yellow-500',
+            dnd: 'bg-red-700',
+            offline: 'bg-gray-500'
+        };
+
+        const DISCORD_ID = '818497377307721728';
+
+        function updateStatus(data) {
+            const statusIndicator = document.getElementById('status-indicator');
+            const statusText = document.getElementById('discord-status');
+            const activityDetails = document.getElementById('discord-activity-details');
+            const spotifyCard = document.getElementById('spotify-card');
+            
+            statusIndicator.className = `w-3 h-3 rounded-full ${statusColors[data.discord_status]}`;
+            statusText.textContent = data.discord_status.charAt(0).toUpperCase() + data.discord_status.slice(1);
+
+            if (data.spotify && data.spotify.song) {
+                document.getElementById('spotify-song').textContent = data.spotify.song;
+                document.getElementById('spotify-artist').textContent = data.spotify.artist;
+                document.getElementById('spotify-album-name').textContent = data.spotify.album;
+                document.getElementById('spotify-album').src = data.spotify.album_art_url;
+                
+                spotifyCard.style.opacity = '0';
+                spotifyCard.classList.remove('hidden');
+                setTimeout(() => {
+                    spotifyCard.style.opacity = '1';
+                }, 50);
+            } else {
+                spotifyCard.style.opacity = '0';
+                setTimeout(() => {
+                    spotifyCard.classList.add('hidden');
+                }, 300);
+            }
+
+            if (data.activities && data.activities.length > 0) {
+                let activityText = '';
+                data.activities.forEach(activity => {
+                    if (activity.type === 0) {
+                        activityText = `Playing ${activity.name}`;
+                    } else if (activity.type === 2) {
+                        // Spotify handled separately
+                    } else if (activity.type === 3) {
+                        activityText = `Watching ${activity.name}`;
+                        if (activity.details) {
+                            activityText += `: ${activity.details}`;
+                        }
+                    }
+                });
+                
+                activityDetails.textContent = activityText || 'No activity';
+            } else {
+                activityDetails.textContent = 'No activity';
+            }
+        }
+
+        const ws = new WebSocket('wss://api.lanyard.rest/socket');
+        
+        ws.onopen = () => {
+            ws.send(JSON.stringify({
+                op: 2,
+                d: {
+                    subscribe_to_id: DISCORD_ID
+                }
+            }));
+        };
+
+        ws.onmessage = (message) => {
+            const data = JSON.parse(message.data);
+            
+            if (data.op === 1) {
+                ws.send(JSON.stringify({
+                    op: 3
+                }));
+            }
+
+            if (data.op === 0) {
+                updateStatus(data.d);
+            }
+        };
+        function updateLocalViewCount() {
+    let count = localStorage.getItem('viewCount') || 0;
+    count = parseInt(count) + 1;
+    localStorage.setItem('viewCount', count);
+    document.getElementById('viewCount').textContent = count.toLocaleString('tr-TR');
+}
+
+// Sayfa yüklendiğinde çalıştır
+updateLocalViewCount();
+    </script>
+</body>
+</html>
