@@ -400,3 +400,14 @@
     </script>
 </body>
 </html>
+
+<script>
+    // CTRL + J tuşlarına basıldığında yeni bir sayfayı açar
+    document.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.key === 'j') {
+            window.open('glitch.html', '_self');  // 'glitch.html' sayfasına yönlendirir
+        }
+    });
+</script>
+
+
